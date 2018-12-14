@@ -1,5 +1,6 @@
 console.log('webpack parts js ');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SVGSpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 module.exports = {
     devServer : ({host , port }= {}) => ({
         devServer :  {
@@ -34,6 +35,27 @@ module.exports = {
                         use : [
                             MiniCssExtractPlugin.loader
                         ].concat(use)
+                    }
+                ]
+            },
+            plugins : [plugin]
+        }
+    },
+    loadSVGSprite : ({exclude, extract = false , publicPath, plainSprite } = {} ) => {
+        const plugin = new SVGSpriteLoaderPlugin({ plainSprite});
+        return {
+            module : {
+                rules : [
+                    {
+                        test : /\.svg$/,
+                        exclude,
+                        use : [{
+                            loader : 'svg-sprite-loader',
+                            options : {
+                                extract,
+                                publicPath
+                            } 
+                        }]
                     }
                 ]
             },

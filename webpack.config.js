@@ -21,18 +21,20 @@ const commonConfig = merge([{
             }
         ]
     },
-    plugins : [ htmlPlugin]
+    plugins : [ htmlPlugin ]
 }]);
 
 const devConfig = merge([
      parts.devServer({ host : process.env.HOST, port : process.env.PORT}),
-     parts.loadCSS({})
+     parts.loadCSS({}),
+     parts.loadSVGSprite({extract : false})
 ]);
 
 const prodConfig = merge([
     parts.extractCSS({
         use : [ 'css-loader', 'sass-loader']
-    })
+    }),
+    parts.loadSVGSprite({ extract : true , publicPath : '/', plainSprite : true})
 ]);
 
 

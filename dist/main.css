@@ -1,9 +1,13 @@
 .container {
   max-width: 1200px;
   padding: 0 20px;
-  margin: auto;
-  background-color: cornflowerblue; }
+  margin: auto; }
   .container .row {
     width: calc(100% - 30px);
     margin: 0 30px; }
+
+.svg-icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px; }
 

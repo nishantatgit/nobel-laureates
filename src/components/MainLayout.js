@@ -1,9 +1,18 @@
 import React from 'react';
 import './MainLayout.scss';
-
+import Icon from './SvgIcon';
+import './SvgIcon.scss';
+import '../svg/chemistry.svg';
 export default class MainComponent extends React.Component{
     render(){
-        return <section className="container"><h1>Main Component</h1><Red/></section>;
+        return <section className="container">
+                <Icon id="chemistry"/>
+                <Icon id="physics"/>
+                <Icon id="peace"/>
+                <Icon id="literature"></Icon>
+                <h1>Main Component</h1>
+                <Red/>
+            </section>;
     }
 }
 
