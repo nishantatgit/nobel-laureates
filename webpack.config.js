@@ -18,11 +18,6 @@ const commonConfig = merge([{
 
                     loader : 'babel-loader',
                 }
-            },
-            {
-                test : /\.scss/,
-                exclude : /node_modules/,
-                use : ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     },
@@ -30,14 +25,20 @@ const commonConfig = merge([{
 }]);
 
 const devConfig = merge([
-     parts.devServer({ host : process.env.HOST, port : process.env.PORT})
+     parts.devServer({ host : process.env.HOST, port : process.env.PORT}),
+     parts.loadCSS({})
 ]);
 
-const prodConfig = merge([]);
+const prodConfig = merge([
+    parts.extractCSS({
+        use : [ 'css-loader', 'sass-loader']
+    })
+]);
 
 
 module.exports = mode => {
     if(mode === "production"){
+        return merge(commonConfig, prodConfig, {mode})
     /* below code is used for debugging prupose     
         let config = merge( commonConfig, prodConfig, {mode});
         console.log("production configurations ", seperator);
