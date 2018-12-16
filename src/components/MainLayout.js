@@ -3,6 +3,8 @@ import './MainLayout.scss';
 import Icon from './SvgIcon';
 import './SvgIcon.scss';
 import '../svg/chemistry.svg';
+import './fonts.scss';
+//import './test.css';
 export default class MainComponent extends React.Component{
     render(){
         return <section className="container">

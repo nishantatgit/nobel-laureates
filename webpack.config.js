@@ -2,6 +2,7 @@
 const merge = require('webpack-merge');
 const parts = require('./webpack.parts');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const htmlPlugin = new HtmlWebpackPlugin({
     template : "./src/index.html",
     filename : "./index.html"
@@ -14,15 +15,47 @@ const commonConfig = merge([{
             {
                 test : /\.js$/,
                 exclude : /node_modules/,
+                use : [
+                   /* {
+                        loader : 'tea-loader',
+                        options : {
+                            label : 'after'
+                        }
+                    }, */
+                    {
+                        loader : 'babel-loader',
+                    },
+                    /*{
+                        loader : 'tea-loader',
+                        options : {
+                            label : 'before'
+                        }
+                    }*/
+                ]
+            },
+            {
+                test : /\.ttf$/,
                 use : {
-
-                    loader : 'babel-loader',
+                    loader : 'url-loader',
+                    options : {
+                        limit : 50000,
+                        mimetype: "application/font-truetype",
+                        name: "./fonts/[name].[ext]"
+                    }
                 }
             }
         ]
     },
-    plugins : [ htmlPlugin ]
-}]);
+    plugins : [ htmlPlugin ],
+    resolveLoader : {
+        alias : {
+            'tee-loader' : path.resolve(__dirname, './loaders/tee-loader.js')
+        }
+    }
+    //plugins : []
+}/*,
+    parts.loadHtml() */
+]);
 
 const devConfig = merge([
      parts.devServer({ host : process.env.HOST, port : process.env.PORT}),
@@ -32,8 +65,9 @@ const devConfig = merge([
 
 const prodConfig = merge([
     parts.extractCSS({
-        use : [ 'css-loader', 'sass-loader']
+        use : [ { loader : 'tee-loader' , options : { label : 'after-css-loader'}} , 'css-loader', { loader : 'tee-loader' , options : { label : 'after-sass'}} , 'sass-loader' , { loader : 'tee-loader' , options : { label : 'before-sass'}}]
     }),
+    //parts.extractCSS2(),
     parts.loadSVGSprite({ extract : true , publicPath : '/', plainSprite : true})
 ]);
 

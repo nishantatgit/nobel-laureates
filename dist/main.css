@@ -11,3 +11,16 @@
   height: 30px;
   padding: 5px; }
 
+@font-face {
+  font-family: OpenSans;
+  src: url(./fonts/OpenSans-Regular.ttf) format("truetype"); }
+
+body {
+  font-family: OpenSans; }
+
+/*
+    url("../fonts/OpenSans-Bold.ttf") format("truetype"),
+      url("../fonts/OpenSans-BoldItalic.ttf") format("truetype"),
+      url("../fonts/OpenSans-Italic.ttf") format("truetype");
+*/
+
